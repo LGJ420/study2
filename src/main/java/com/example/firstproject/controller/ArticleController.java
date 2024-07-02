@@ -19,7 +19,7 @@ public class ArticleController {
     }
     
 
-    @PostMapping("articles/create")
+    @PostMapping("/articles/create")
     public String createArticle(ArticleForm form) {
 
         log.info(form.toString());
