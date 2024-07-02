@@ -1,5 +1,7 @@
 package com.example.firstproject.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,9 +63,16 @@ public class ArticleController {
 
 
     @GetMapping("/articles")
-    public String index(){
+    public String index(Model model){
 
-        return "";
+        // 1. 모든 데이터 가져오기
+        ArrayList<Article> articleEntityList = articleRepository.findAll();
+        
+        // 2. 모델에 데이터 등록하기
+        model.addAttribute("articleList", articleEntityList);
+
+        // 3. 뷰 페이지 설정하기
+        return "articles/index";
     }
     
 }
