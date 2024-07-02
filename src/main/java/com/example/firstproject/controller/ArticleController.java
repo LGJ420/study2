@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.firstproject.dto.ArticleForm;
+import com.example.firstproject.entity.Article;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -23,6 +24,15 @@ public class ArticleController {
     public String createArticle(ArticleForm form) {
 
         log.info(form.toString());
+
+        // 1. DTO를 엔티티로 변환
+        Article article = form.toEntity();
+
+
+        // 2. 리포지토리로 엔티티를 DB에 저장
+
+
+        
         return "";
     }
 }
