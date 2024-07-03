@@ -117,7 +117,7 @@ public class ArticleController {
     
 
     @GetMapping("/articles/{id}/delete")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id, RedirectAttributes rttr){
 
         log.info("삭제 요청이 들어왔습니다!!");
 
@@ -128,6 +128,7 @@ public class ArticleController {
         // 2. 대상 엔티티 삭제하기
         if (target != null){
             articleRepository.delete(target);
+            rttr.addFlashAttribute("msg", "삭제됬습니다!");
         }
 
         // 3. 결과 페이지로 리다이렉트하기
