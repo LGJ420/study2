@@ -27,82 +27,79 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ArticleApiController {
     
     @Autowired
-    private ArticleRepository articleRepository;
-
-    @Autowired
     private ArticleService articleService;
 
 
     // GET
     @GetMapping("/api/articles")
-    public List<Article> indes(){
+    public List<Article> index(){
 
-        return articleRepository.findAll();
+        return articleService.index();
     }
 
     @GetMapping("/api/articles/{id}")
     public Article show(@PathVariable Long id){
 
-        return articleRepository.findById(id).orElse(null);
+        return articleService.show(id);
     }
     
 
-    // POST
-    @PostMapping("/api/articles")
-    public Article create(@RequestBody ArticleForm dto){
+    // // POST
+    // @PostMapping("/api/articles")
+    // public Article create(@RequestBody ArticleForm dto){
 
-        Article article = dto.toEntity();
-        return articleRepository.save(article);
-    }
-
-
-    // PUT/PATCH
-    @PatchMapping("/api/articles/{id}")
-    public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto){
-
-        // 1. 수정용 엔티티 생성하기
-        Article article = dto.toEntity();
-        log.info("id: {}, article: {}", id, article.toString());
+    //     Article article = dto.toEntity();
+    //     return articleRepository.save(article);
+    // }
 
 
-        // 2. DB에 대상 엔티티가 있는지 조회하기
-        Article target = articleRepository.findById(id).orElse(null);
+    // // PUT/PATCH
+    // @PatchMapping("/api/articles/{id}")
+    // public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto){
+
+    //     // 1. 수정용 엔티티 생성하기
+    //     Article article = dto.toEntity();
+    //     log.info("id: {}, article: {}", id, article.toString());
 
 
-        // 3. 대상 엔티티가 없거나 수정하려는 id가 잘못됐을 경우 처리하기
-        if (target == null ||  id != article.getId()){
-
-            log.info("잘못된 요청! id: {}, article: {}", id, article.toString());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+    //     // 2. DB에 대상 엔티티가 있는지 조회하기
+    //     Article target = articleRepository.findById(id).orElse(null);
 
 
-        // 4. 대상 엔티티가 있으면 수정 내용으로 업데이트하고 정상 응답(200) 보내기
-        target.patch(article);
-        Article updated = articleRepository.save(target);
-        return ResponseEntity.status(HttpStatus.OK).body(updated);
+    //     // 3. 대상 엔티티가 없거나 수정하려는 id가 잘못됐을 경우 처리하기
+    //     if (target == null ||  id != article.getId()){
 
-    }
+    //         log.info("잘못된 요청! id: {}, article: {}", id, article.toString());
+    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    //     }
 
 
-    // DELETE
-    @DeleteMapping("/api/articles/{id}")
-    public ResponseEntity<Article> delete(@PathVariable Long id){
+    //     // 4. 대상 엔티티가 있으면 수정 내용으로 업데이트하고 정상 응답(200) 보내기
+    //     target.patch(article);
+    //     Article updated = articleRepository.save(target);
+    //     return ResponseEntity.status(HttpStatus.OK).body(updated);
 
-        // 1. DB에서 대상 엔티티가 있는지 조회하기
-        Article target = articleRepository.findById(id).orElse(null);
+    // }
+
+
+    // // DELETE
+    // @DeleteMapping("/api/articles/{id}")
+    // public ResponseEntity<Article> delete(@PathVariable Long id){
+
+    //     // 1. DB에서 대상 엔티티가 있는지 조회하기
+    //     Article target = articleRepository.findById(id).orElse(null);
         
 
-        // 2. 대상 엔티티가 없어서 요청 자체가 잘못됐을 경우 처리하기
-        if (target == null){
+    //     // 2. 대상 엔티티가 없어서 요청 자체가 잘못됐을 경우 처리하기
+    //     if (target == null){
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    //     }
 
 
-        // 3. 대상 엔티티가 있으면 삭제하고 정상 응답(200) 반환하기
-        articleRepository.delete(target);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    //     // 3. 대상 엔티티가 있으면 삭제하고 정상 응답(200) 반환하기
+    //     articleRepository.delete(target);
+    //     return ResponseEntity.status(HttpStatus.OK).build();
 
-    }
+    // }
 }
