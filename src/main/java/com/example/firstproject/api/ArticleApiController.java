@@ -44,13 +44,16 @@ public class ArticleApiController {
     }
     
 
-    // // POST
-    // @PostMapping("/api/articles")
-    // public Article create(@RequestBody ArticleForm dto){
+    // POST
+    @PostMapping("/api/articles")
+    public ResponseEntity<Article> create(@RequestBody ArticleForm dto){
 
-    //     Article article = dto.toEntity();
-    //     return articleRepository.save(article);
-    // }
+        Article created = articleService.create(dto);
+
+        return (created != null) ?
+            ResponseEntity.status(HttpStatus.OK).body(created) : 
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 
 
     // // PUT/PATCH
