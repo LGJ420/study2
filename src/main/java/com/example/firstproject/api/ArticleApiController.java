@@ -10,9 +10,10 @@ import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -38,11 +39,12 @@ public class ArticleApiController {
 
     // POST
     @PostMapping("/api/articles")
-    public Article create(@RequestParam ArticleForm dto){
+    public Article create(@RequestBody ArticleForm dto){
 
         Article article = dto.toEntity();
         return articleRepository.save(article);
     }
+
 
     // PUT/PATCH
 
