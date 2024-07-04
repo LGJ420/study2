@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
+import com.example.firstproject.service.ArticleService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -27,6 +28,9 @@ public class ArticleApiController {
     
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private ArticleService articleService;
 
 
     // GET
