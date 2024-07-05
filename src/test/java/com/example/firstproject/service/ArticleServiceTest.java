@@ -2,7 +2,12 @@ package com.example.firstproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.firstproject.entity.Article;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +19,20 @@ public class ArticleServiceTest {
 
     @Test
     void index(){
+
+        // 1. 예상 데이터 작성하기
+        Article a = new Article(1L, "가가가가", "1111");
+        Article b = new Article(2L, "나나나나", "2222");
+        Article c = new Article(3L, "다다다다", "3333");
+        List<Article> expected = new ArrayList<Article>(Arrays.asList(a, b, c));
+
+
+        // 2. 실제 데이터 획득하기
+        List<Article> articles = articleService.index();
+
+
+        // 3. 예상 데이터와 실제 데이터 비교해 검증하기
+        assertEquals(expected.toString(), articles.toString());
 
     }
 }
