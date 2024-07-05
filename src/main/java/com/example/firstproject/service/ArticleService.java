@@ -67,4 +67,23 @@ public class ArticleService {
         Article updated = articleRepository.save(target);
         return updated;
     }
+
+
+    public Article delete(Long id){
+
+        // 1. DB에서 대상 엔티티가 있는지 조회하기
+        Article target = articleRepository.findById(id).orElse(null);
+        
+
+        // 2. 대상 엔티티가 없어서 요청 자체가 잘못됐을 경우 처리하기
+        if (target == null){
+
+            return null;
+        }
+
+
+        // 3. 대상 엔티티가 있으면 삭제하고 정상 응답(200) 반환하기
+        articleRepository.delete(target);
+        return target;
+    }
 }

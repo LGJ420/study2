@@ -59,33 +59,23 @@ public class ArticleApiController {
     // PUT/PATCH
     @PatchMapping("/api/articles/{id}")
     public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto){
-        
+
         Article updated = articleService.update(id, dto);
 
         return (updated != null) ?
-        ResponseEntity.status(HttpStatus.OK).body(updated) : 
-        ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            ResponseEntity.status(HttpStatus.OK).body(updated) : 
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
 
-    // // DELETE
-    // @DeleteMapping("/api/articles/{id}")
-    // public ResponseEntity<Article> delete(@PathVariable Long id){
+    // DELETE
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Article> delete(@PathVariable Long id){
 
-    //     // 1. DB에서 대상 엔티티가 있는지 조회하기
-    //     Article target = articleRepository.findById(id).orElse(null);
-        
+        Article deleted = articleService.delete(id);
+        return (deleted != null) ?
+            ResponseEntity.status(HttpStatus.OK).body(deleted) : 
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-    //     // 2. 대상 엔티티가 없어서 요청 자체가 잘못됐을 경우 처리하기
-    //     if (target == null){
-
-    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-    //     }
-
-
-    //     // 3. 대상 엔티티가 있으면 삭제하고 정상 응답(200) 반환하기
-    //     articleRepository.delete(target);
-    //     return ResponseEntity.status(HttpStatus.OK).build();
-
-    // }
+    }
 }
