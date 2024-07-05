@@ -85,7 +85,7 @@ public class CommentService {
 
         // 1. DB에서 해당 댓글을 조회해 가져오고 없을 경우 예외 발생시키기
         Comment target = commentRepository.findById(id).orElseThrow(()->
-            new IllegalArgumentException("댓글 삭제 실패! 대상이 없습니다."))
+            new IllegalArgumentException("댓글 삭제 실패! 대상이 없습니다."));
 
         // 2. 가져온 댓글을 DB에서 삭제하기
         commentRepository.delete(target);
