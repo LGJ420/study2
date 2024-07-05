@@ -1,5 +1,6 @@
 package com.example.firstproject.dto;
 
+import com.example.firstproject.entity.Article;
 import com.example.firstproject.entity.Comment;
 
 import lombok.AllArgsConstructor;
@@ -27,4 +28,5 @@ public class CommentDto {
             comment.getBody()
         );
     }
+
 }
