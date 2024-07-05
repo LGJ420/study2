@@ -3,6 +3,7 @@ package com.example.firstproject.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.entity.Article;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,6 +50,25 @@ public class ArticleServiceTest {
 
         // 3. 예상 데이터와 실제 데이터 비교해 검증하기
         assertEquals(expected.toString(), article.toString());
+    }
+
+
+
+    @Test
+    void create(){
+
+        // 1. 예상 데이터 작성하기
+        String title = "라라라라";
+        String content = "4444";
+        ArticleForm dto = new ArticleForm(null, title, content);
+        Article expected = new Article(4L, title, content);
+
+        // 2. 실제 데이터 획득하기
+        Article article = articleService.create(dto);
+
+        // 3. 예상 데이터와 실제 데이터 비교해 검증하기
+        assertEquals(expected.toString(), article.toString());
+
     }
 
 
