@@ -2,9 +2,12 @@ package com.example.firstproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.entity.Article;
+
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -55,6 +58,7 @@ public class ArticleServiceTest {
 
 
     @Test
+    @Transactional
     void create(){
 
         // 1. 예상 데이터 작성하기
