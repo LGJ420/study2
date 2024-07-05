@@ -35,4 +35,21 @@ public class ArticleServiceTest {
         assertEquals(expected.toString(), articles.toString());
 
     }
+
+
+    @Test
+    void show(){
+
+        // 1. 예상 데이터 작성하기
+        Long id = 1L;
+        Article expected = new Article(id, "가가가가", "1111");
+
+        // 2. 실제 데이터 획득하기
+        Article article = articleService.show(id);
+
+        // 3. 예상 데이터와 실제 데이터 비교해 검증하기
+        assertEquals(expected.toString(), article.toString());
+    }
+
+
 }
