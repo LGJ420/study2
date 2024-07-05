@@ -49,6 +49,8 @@ public class ArticleApiController {
 
         Article created = articleService.create(dto);
 
+        // 실제 개발에선 예외처리로 작성하지
+        // 이따구로 리턴하지 않는다고 한다(그럼 대체 왜시킨거야...)
         return (created != null) ?
             ResponseEntity.status(HttpStatus.OK).body(created) : 
             ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
