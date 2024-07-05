@@ -1,6 +1,7 @@
 package com.example.firstproject.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 
 @Service
@@ -85,5 +87,29 @@ public class ArticleService {
         // 3. 대상 엔티티가 있으면 삭제하고 정상 응답(200) 반환하기
         articleRepository.delete(target);
         return target;
+    }
+
+    
+    @Transactional
+    public List<Article> createArticles(List<ArticleForm> dtos){
+
+        // 1. dto 묶음(리스트)을 엔티티 묶음(리시트)으로 변환하기
+        List<Article> articleList = dtos.stream()   // 스트림 화 한다
+            .map(dto -> dto.toEntity())             // map으로 dto하나하나 toEntity()수행
+            .collect(Collectors.toList());          // 매핑한것을 리스트로 묶는다
+
+
+        // 2. 엔티티 묶음(리스트)을 DB에 저장하기
+        articleList.stream()    // 스트림 화 한다
+            .forEach(article -> articleRepository.save(article));   // 각각 article이 올때마다 DB에 저장
+
+
+        // 3. 강제로 에러를 발생시키기
+        articleRepository.findById(-1L)
+            .orElseThrow(()->new IllegalArgumentException("결제 실패!"));
+
+
+        // 4. 결과 값 반환하기
+        return articleList;
     }
 }
