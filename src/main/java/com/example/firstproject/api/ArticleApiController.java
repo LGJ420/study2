@@ -56,33 +56,16 @@ public class ArticleApiController {
     }
 
 
-    // // PUT/PATCH
-    // @PatchMapping("/api/articles/{id}")
-    // public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto){
+    // PUT/PATCH
+    @PatchMapping("/api/articles/{id}")
+    public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto){
+        
+        Article updated = articleService.update(id, dto);
 
-    //     // 1. 수정용 엔티티 생성하기
-    //     Article article = dto.toEntity();
-    //     log.info("id: {}, article: {}", id, article.toString());
-
-
-    //     // 2. DB에 대상 엔티티가 있는지 조회하기
-    //     Article target = articleRepository.findById(id).orElse(null);
-
-
-    //     // 3. 대상 엔티티가 없거나 수정하려는 id가 잘못됐을 경우 처리하기
-    //     if (target == null ||  id != article.getId()){
-
-    //         log.info("잘못된 요청! id: {}, article: {}", id, article.toString());
-    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-    //     }
-
-
-    //     // 4. 대상 엔티티가 있으면 수정 내용으로 업데이트하고 정상 응답(200) 보내기
-    //     target.patch(article);
-    //     Article updated = articleRepository.save(target);
-    //     return ResponseEntity.status(HttpStatus.OK).body(updated);
-
-    // }
+        return (updated != null) ?
+        ResponseEntity.status(HttpStatus.OK).body(updated) : 
+        ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 
 
     // // DELETE
