@@ -33,6 +33,18 @@
         };
 
         console.log(comment);
+        const url = "/api/articles/" + comment.articleId + "/comments";
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(comment)
+        }).then(response=>{
+            const msg = (response.ok) ? "댓글이 등록됐습니다." : "댓글 등록 실패..!";
+            alert(msg);
+            window.location.reload();
+        });
     })
 }
 </script>
