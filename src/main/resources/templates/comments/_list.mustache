@@ -66,16 +66,41 @@
         const triggerBtn = event.relatedTarget;
 
         // 2. 데이터 가져오기
-        const id = truggerBtn.getAttribute("data-bs-id");
-        const nickname = truggerBtn.getAttribute("data-bs-nickname");
-        const body = truggerBtn.getAttribute("data-bs-body");
-        const articleId = truggerBtn.getAttribute("data-bs-article-id");
+        const id = triggerBtn.getAttribute("data-bs-id");
+        const nickname = triggerBtn.getAttribute("data-bs-nickname");
+        const body = triggerBtn.getAttribute("data-bs-body");
+        const articleId = triggerBtn.getAttribute("data-bs-article-id");
 
         // 3. 수정 폼에 데이터 반영
         document.querySelector("#edit-comment-nickname").value = nickname;
         document.querySelector("#edit-comment-body").value = body;
         document.querySelector("#edit-comment-id").value = id;
-        document.querySelector("#edit-comment-article-id").value articleId= ;
+        document.querySelector("#edit-comment-article-id").value = articleId;
+    });
+}
+{
+    const commentUpdateBtn = document.querySelector("#comment-update-btn");
+    commentUpdateBtn.addEventListener("click", ()=>{
+        const comment = {
+            id: document.querySelector("#edit-comment-id").value,
+            nickname: document.querySelector("#edit-comment-nickname").value,
+            body: document.querySelector("#edit-comment-body").value,
+            article_id: document.querySelector("#edit-comment-article-id").value
+        };
+        console.log(comment);
+
+        const url = "/api/comments/" + comment.id;
+        fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(comment)
+        }).then(response=>{
+            const msg = (response.ok) ? "댓글이 수정됐습니다." : "댓글 수정 실패..!";
+            alert(msg);
+            window.location.reload();
+        });
     });
 }
 </script>
