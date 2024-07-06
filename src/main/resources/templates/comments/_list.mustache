@@ -7,7 +7,11 @@
                 <button type="button"
                     class="btn btn-sm btn-outline-primary"
                     data-bs-toggle="modal"
-                    data-bs-target="#comment-edit-modal">
+                    data-bs-target="#comment-edit-modal"
+                    data-bs-id="{{id}}"
+                    data-bs-nickname="{{nickname}}"
+                    data-bs-body="{{body}}"
+                    data-bs-article-id="{{articleId}}">
                     수정
                 </button>
             </div>
@@ -52,3 +56,26 @@
         </div>
     </div>
 </div>
+
+<!-- 모달 이벤트 처리 -->
+<script>
+{
+    const commentEditModal = document.querySelector("#comment-edit-modal");
+    commentEditModal.addEventListener("show.bs.modal", (event)=>{
+        // 1. 트리거 버튼 선택
+        const triggerBtn = event.relatedTarget;
+
+        // 2. 데이터 가져오기
+        const id = truggerBtn.getAttribute("data-bs-id");
+        const nickname = truggerBtn.getAttribute("data-bs-nickname");
+        const body = truggerBtn.getAttribute("data-bs-body");
+        const articleId = truggerBtn.getAttribute("data-bs-article-id");
+
+        // 3. 수정 폼에 데이터 반영
+        document.querySelector("#edit-comment-nickname").value = nickname;
+        document.querySelector("#edit-comment-body").value = body;
+        document.querySelector("#edit-comment-id").value = id;
+        document.querySelector("#edit-comment-article-id").value articleId= ;
+    });
+}
+</script>
